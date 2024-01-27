@@ -4,7 +4,8 @@ import './CurrentWeatherCard.css';
 function CurrentWeatherCard() {
     const [currentWeatherData, setCurrentWeatherData] = useState({
         condition: '',
-        icon: ''
+        icon: '',
+        temp_f: ''
     });
 
 useEffect(() => {
@@ -17,7 +18,8 @@ useEffect(() => {
             setCurrentWeatherData(prevData => ({
                 ...prevData,
                 condition: weatherData.current.condition.text,
-                icon: weatherData.current.condition.icon
+                icon: weatherData.current.condition.icon,
+                temp_f: weatherData.current.temp_f
             }));
         } catch (error) {
             console.error('Error!:', error.message);
@@ -30,8 +32,9 @@ useEffect(() => {
 
 return (
     <div>
-        <p>{currentWeatherData.condition}</p>
         <img src={currentWeatherData.icon} alt="Weather icon" />
+        <p>{currentWeatherData.temp_f}</p>
+        <p>{currentWeatherData.condition}</p>
     </div>
     );
 }

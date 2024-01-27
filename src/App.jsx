@@ -6,7 +6,6 @@ import './CurrentWeatherCard.jsx'
 import CurrentWeatherCard from './CurrentWeatherCard'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
   <CurrentWeatherCard />
