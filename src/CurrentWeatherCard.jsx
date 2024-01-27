@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import './CurrentWeatherCard.css';
 
 function CurrentWeatherCard() {
     const [currentWeatherData, setCurrentWeatherData] = useState({
@@ -31,10 +30,10 @@ useEffect(() => {
 }, []);
 
 return (
-    <div>
-        <img src={currentWeatherData.icon} alt="Weather icon" />
-        <p>{currentWeatherData.temp_f}</p>
-        <p>{currentWeatherData.condition}</p>
+    <div className="card">
+        <img src={currentWeatherData.icon} alt="Weather icon" className="card_icon"/>
+        <p className="card_temp">{currentWeatherData.temp_f}°</p>
+        <p className="card_condition">{currentWeatherData.condition}</p>
     </div>
     );
 }
