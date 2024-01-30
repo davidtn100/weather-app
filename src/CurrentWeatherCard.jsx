@@ -18,7 +18,7 @@ useEffect(() => {
                 ...prevData,
                 condition: weatherData.current.condition.text,
                 icon: weatherData.current.condition.icon,
-                temp_f: weatherData.current.temp_f
+                temp_f: Math.round(weatherData.current.temp_f)
             }));
         } catch (error) {
             console.error('Error!:', error.message);
@@ -32,6 +32,7 @@ useEffect(() => {
 return (
     <div className="card">
         <img src={currentWeatherData.icon} alt="Weather icon" className="card_icon"/>
+        <p>Today</p>
         <p className="card_temp">{currentWeatherData.temp_f}°</p>
         <p className="card_condition">{currentWeatherData.condition}</p>
     </div>
