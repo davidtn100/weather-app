@@ -22,7 +22,7 @@ function App() {
     return forecastCards
   }
   return (
-    <div>
+    <div className="app">
     <CurrentWeatherCard />
     {populateForecastWeatherCards()}
     </div>

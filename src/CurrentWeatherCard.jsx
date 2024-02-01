@@ -32,7 +32,7 @@ useEffect(() => {
 return (
     <div className="card">
         <img src={currentWeatherData.icon} alt="Weather icon" className="card_icon"/>
-        <p>Current</p>
+        <p>Right Now</p>
         <p className="card_temp">{currentWeatherData.temp_f}°</p>
         <p className="card_condition">{currentWeatherData.condition}</p>
     </div>
