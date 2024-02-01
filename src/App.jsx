@@ -7,6 +7,7 @@ import ForecastWeatherCard from './ForecastWeatherCard'
 
 function App() {
   const [ForecastDay, setDisplayForecastDays] = useState(3)
+  const [locationInput, setLocationInput] = useState(92841)
 
   function populateForecastWeatherCards(){
     const totalForecastDays = ForecastDay
@@ -23,7 +24,7 @@ function App() {
   }
   return (
     <div className="app">
-    <CurrentWeatherCard />
+    <CurrentWeatherCard location={locationInput}/>
     {populateForecastWeatherCards()}
     </div>
   )

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-function CurrentWeatherCard() {
+function CurrentWeatherCard(props) {
     const [currentWeatherData, setCurrentWeatherData] = useState({
         condition: '',
         icon: '',
@@ -10,7 +10,7 @@ function CurrentWeatherCard() {
 useEffect(() => {
     const fetchData = async () => {
         try {
-            const response = await fetch("http://api.weatherapi.com/v1/forecast.json?key=f7af6cf12f7040ac9e404543230612&q=92841&days=3", { mode: 'cors' });
+            const response = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=f7af6cf12f7040ac9e404543230612&q=${props.location}&days=3`, { mode: 'cors' });
             const weatherData = await response.json();
             console.log(weatherData);
 
