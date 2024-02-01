@@ -4,6 +4,8 @@ import './CurrentWeatherCard.jsx'
 import CurrentWeatherCard from './CurrentWeatherCard'
 import './ForecastWeatherCard.jsx'
 import ForecastWeatherCard from './ForecastWeatherCard'
+import './LocationInputForm.jsx'
+import LocationInputForm from './LocationInputForm'
 
 function App() {
   const [ForecastDay, setDisplayForecastDays] = useState(3)
@@ -24,6 +26,7 @@ function App() {
   }
   return (
     <div className="app">
+    <LocationInputForm/>
     <CurrentWeatherCard location={locationInput}/>
     {populateForecastWeatherCards()}
     </div>
