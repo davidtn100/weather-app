@@ -1,8 +1,8 @@
-.app {
+.weatherCards {
   margin: 0;
   flex: 0 0 auto;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 }
 
 .card {
@@ -30,4 +30,8 @@
 
 .card_icon {
   width: 250px;
+}
+
+.chart {
+  height: 1000px;
 }
