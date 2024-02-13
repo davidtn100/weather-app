@@ -58,7 +58,7 @@ function App() {
 
       <div className="chart">
       <h1>Super Cool Nivo Bar Chart</h1>
-      <MyResponsiveLine data={data} />
+
       </div>
 
     </div>
@@ -66,3 +66,5 @@ function App() {
 }
 
 export default App
+
+//     <MyResponsiveLine data={data} />

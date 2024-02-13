@@ -27,7 +27,8 @@ function ForecastWeatherCard(props) {
         condition: '',
         icon: '',
         temp_f: '',
-        dayName: ''
+        dayName: '',
+        hour_temp_f: []
     });
 
     function dayNameFromDate(date){
@@ -42,17 +43,24 @@ function ForecastWeatherCard(props) {
             try {
                 const response = await fetch("http://api.weatherapi.com/v1/forecast.json?key=f7af6cf12f7040ac9e404543230612&q=92841&days=3", { mode: 'cors' });
                 const weatherData = await response.json();
-                const forecastDate = await convertDateFormat(weatherData.forecast.forecastday[props.day].date);
+                
                 console.log(weatherData);
+
+                const forecastDate = convertDateFormat(weatherData.forecast.forecastday[props.day].date);
+                
+                const hourly_temp_f_Data = weatherData.forecast.forecastday[props.day].hour.map(hourData => {
+                    return { "x": hourData.time, "y": hourData.temp_f };
+                    })
+                ;
 
                 setForecastWeatherData(prevData => ({
                     ...prevData,
                     condition: weatherData.forecast.forecastday[props.day].day.condition.text,
                     icon: weatherData.forecast.forecastday[props.day].day.condition.icon,
                     temp_f: Math.round(weatherData.forecast.forecastday[props.day].day.avgtemp_f),
-                    dayName: dayNameFromDate(new Date(forecastDate))
+                    dayName: dayNameFromDate(new Date(forecastDate)),
+                    hour_temp_f: hourly_temp_f_Data
                 }));
-                console.log(new Date(weatherData.forecast.forecastday[props.day].date))
 
             } catch (error) {
                 console.error('Error!:', error.message);
@@ -61,7 +69,11 @@ function ForecastWeatherCard(props) {
 
         fetchData();
 
-    }, []);
+    }, [props.day]);
+
+    useEffect(() => {
+        console.log(forecastWeatherData);
+    }, [forecastWeatherData]);
 
     return (
         <div className="card">
