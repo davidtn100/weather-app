@@ -1,33 +1,9 @@
 import { useState, useEffect } from 'react';
+import useFetchCurrentData from './hooks/useFetchCurrentData';
 
 function CurrentWeatherCard(props) {
-    const [currentWeatherData, setCurrentWeatherData] = useState({
-        condition: '',
-        icon: '',
-        temp_f: ''
-    });
 
-useEffect(() => {
-    const fetchData = async () => {
-        try {
-            const response = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=f7af6cf12f7040ac9e404543230612&q=${props.location}&days=3`, { mode: 'cors' });
-            const weatherData = await response.json();
-            console.log(weatherData);
-
-            setCurrentWeatherData(prevData => ({
-                ...prevData,
-                condition: weatherData.current.condition.text,
-                icon: weatherData.current.condition.icon,
-                temp_f: Math.round(weatherData.current.temp_f)
-            }));
-        } catch (error) {
-            console.error('Error!:', error.message);
-        }
-    };
-
-    fetchData();
-
-}, []);
+const {currentWeatherData} = useFetchCurrentData(`http://api.weatherapi.com/v1/forecast.json?key=f7af6cf12f7040ac9e404543230612&q=${props.location}&days=3`)
 
 return (
     <div className="card">
