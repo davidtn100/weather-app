@@ -13,10 +13,9 @@ const useFetchCurrentData = (url) => {
             try {
                 const response = await fetch(url, { mode: 'cors' });
                 const weatherData = await response.json();
-                console.log(weatherData);
     
                 setCurrentWeatherData(prevData => ({
-                    ...prevData,
+                    
                     condition: weatherData.current.condition.text,
                     icon: weatherData.current.condition.icon,
                     temp_f: Math.round(weatherData.current.temp_f)

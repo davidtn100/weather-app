@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
+import './hooks/useFetchCurrentData.jsx'
 import useFetchCurrentData from './hooks/useFetchCurrentData';
 
 function CurrentWeatherCard(props) {
 
-const {currentWeatherData} = useFetchCurrentData(`http://api.weatherapi.com/v1/forecast.json?key=f7af6cf12f7040ac9e404543230612&q=${props.location}&days=3`)
+const {currentWeatherData} = useFetchCurrentData(`http://api.weatherapi.com/v1/forecast.json?key=f7af6cf12f7040ac9e404543230612&q=${props.location}&days=3`, props)
 
 return (
     <div className="card">

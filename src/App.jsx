@@ -2,15 +2,15 @@ import { useState } from 'react'
 import './App.css'
 import './CurrentWeatherCard.jsx'
 import CurrentWeatherCard from './CurrentWeatherCard'
-import './ForecastWeatherCard.jsx'
-import ForecastWeatherCard from './ForecastWeatherCard'
+import './ForecastWeatherCards.jsx'
+import ForecastWeatherCards from './ForecastWeatherCards.jsx'
 import './LocationInputForm.jsx'
 import LocationInputForm from './LocationInputForm'
 
 import MyResponsiveLine from './MyResponsiveLine'
 
 function App() {
-  const [ForecastDay, setDisplayForecastDays] = useState(3)
+  const [ForecastDays, setDisplayForecastDays] = useState(3)
   const [locationInput, setLocationInput] = useState(92841)
 
   const data = [
@@ -34,31 +34,17 @@ function App() {
     }
   ];
 
-  function populateForecastWeatherCards(){
-    const totalForecastDays = ForecastDay
-    const forecastCards = []
-    for (let i = 0; i < totalForecastDays; i++) {
-      forecastCards.push(
-      <ForecastWeatherCard
-        day={i}
-        key={i}
-      />
-      );
-    }
-    return forecastCards
-  }
   return (
     <div>
 
       <div className="weatherCards">
       <LocationInputForm/>
       <CurrentWeatherCard location={locationInput}/>
-      {populateForecastWeatherCards()}
+      <ForecastWeatherCards totalDays={ForecastDays}/>
       </div>
 
       <div className="chart">
       <h1>Super Cool Nivo Bar Chart</h1>
-
       </div>
 
     </div>

@@ -1,17 +1,16 @@
 .weatherCards {
   margin: 0;
-  flex: 0 0 auto;
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap; /* Allow cards to wrap to the next row */
+  justify-content: center; /* Center cards horizontally */
 }
 
 .card {
-  margin: 0;
+  margin: 10px; /* Add margin between cards */
   font-family: sans-serif;
-  flex: 0 0 auto;
   display: flex;
   flex-direction: column;
-  position:relative;
+  position: relative;
   text-align: center;
   border: 4px solid blue;
   border-radius: 40px;

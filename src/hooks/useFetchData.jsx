@@ -1,13 +1,8 @@
 import { useState, useEffect } from 'react';
 
-const useFetchData = (url,props) => {
-    const [forecastWeatherData, setForecastWeatherData] = useState({
-        condition: '',
-        icon: '',
-        temp_f: '',
-        dayName: '',
-        hour_temp_f: []
-    });
+const useFetchData = (url, totalDays) => {
+
+    const [forecastDataArray, setForecastDataArray] = useState([{}]);
     
     function convertDateFormat(inputDate) {
         // Parse the input date string in "YYYY-MM-DD" format
@@ -35,30 +30,32 @@ const useFetchData = (url,props) => {
         const dayIndex = date.getDay();
         return dayName[dayIndex];
     }
-    useEffect(() => {
 
-        const fetchData = async () => {
+    useEffect(() => {
+        async function fetchData() {
             try {
                 const response = await fetch(url, { mode: 'cors' });
                 const weatherData = await response.json();
                 
-                console.log(weatherData);
+                const newForecastDataArray = [];
 
-                const forecastDate = convertDateFormat(weatherData.forecast.forecastday[props.day].date);
-                
-                const hourly_temp_f_Data = weatherData.forecast.forecastday[props.day].hour.map(hourData => {
-                    return { "x": hourData.time, "y": hourData.temp_f };
+                for (let i = 0; i < totalDays; i++) {
+                    const forecastDate = convertDateFormat(weatherData.forecast.forecastday[i].date);
+                    
+                    const hourly_temp_f_Data = weatherData.forecast.forecastday[i].hour.map(hourData => {
+                        return { "x": hourData.time, "y": hourData.temp_f };
+                    });
+
+                    newForecastDataArray.push({
+                        condition: weatherData.forecast.forecastday[i].day.condition.text,
+                        icon: weatherData.forecast.forecastday[i].day.condition.icon,
+                        temp_f: Math.round(weatherData.forecast.forecastday[i].day.avgtemp_f),
+                        dayName: dayNameFromDate(new Date(forecastDate)),
+                        hour_temp_f: hourly_temp_f_Data
                     })
-                ;
 
-                setForecastWeatherData(prevData => ({
-                    ...prevData,
-                    condition: weatherData.forecast.forecastday[props.day].day.condition.text,
-                    icon: weatherData.forecast.forecastday[props.day].day.condition.icon,
-                    temp_f: Math.round(weatherData.forecast.forecastday[props.day].day.avgtemp_f),
-                    dayName: dayNameFromDate(new Date(forecastDate)),
-                    hour_temp_f: hourly_temp_f_Data
-                }));
+                    setForecastDataArray(newForecastDataArray);
+                }
 
             } catch (error) {
                 console.error('Error!:', error.message);
@@ -67,10 +64,9 @@ const useFetchData = (url,props) => {
 
         fetchData();
 
-    }, [props.day, url]);
+    }, []);
 
-    return {forecastWeatherData};
+    return {forecastDataArray};
 }
 
 export default useFetchData;
-
