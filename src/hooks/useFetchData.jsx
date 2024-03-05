@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 const useFetchData = (url, totalDays) => {
 
-    const [forecastDataArray, setForecastDataArray] = useState([{}]);
+    const [DataArray, setDataArray] = useState([{}]);
     
     function convertDateFormat(inputDate) {
         // Parse the input date string in "YYYY-MM-DD" format
@@ -53,10 +53,10 @@ const useFetchData = (url, totalDays) => {
                         dayName: dayNameFromDate(new Date(forecastDate)),
                         hour_temp_f: hourly_temp_f_Data
                     })
-
-                    setForecastDataArray(newForecastDataArray);
                 }
 
+                setDataArray(newForecastDataArray);
+                
             } catch (error) {
                 console.error('Error!:', error.message);
             }
@@ -66,7 +66,7 @@ const useFetchData = (url, totalDays) => {
 
     }, []);
 
-    return {forecastDataArray};
+    return {DataArray};
 }
 
 export default useFetchData;
