@@ -7,6 +7,9 @@ import CurrentWeatherCard from './CurrentWeatherCard'
 import './ForecastWeatherCards.jsx'
 import ForecastWeatherCards from './ForecastWeatherCards.jsx'
 
+import './WeatherDetailsDropDown.jsx'
+import WeatherDetailsDropDown from './WeatherDetailsDropDown.jsx'
+
 import './LocationInputForm.jsx'
 import LocationInputForm from './LocationInputForm'
 
@@ -19,27 +22,16 @@ function App() {
   const [ForecastDays, setDisplayForecastDays] = useState(3)
   const [locationInput, setLocationInput] = useState(92841)
   const [selectedCardData, setSelectedCardData] = useState([])
-  const [forecastDataArray, setForecastDataArray] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [chartData, setChartData] = useState([]);
+  const [forecastDataArray, setForecastDataArray] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [clickedDropdown, setClickedDropdown] = useState("hour_temp_f")
+  const [cardIndex, setCardIndex] = useState(0)
 
   const { DataArray } = useFetchData(`http://api.weatherapi.com/v1/forecast.json?key=f7af6cf12f7040ac9e404543230612&q=92841&days=${ForecastDays}`, ForecastDays);
 
-  useEffect(() => {
-    setForecastDataArray(DataArray)
-    setLoading(false);
-  }, [locationInput, ForecastDays, DataArray]);
-
-
-  const data = [
-    {
-    "id": "us",
-    "color": "hsl(145, 70%, 50%)",
-    "data": selectedCardData
-    }
-  ];
-
   const handleCardClick = (event) => {
-    const cardIndex = event.currentTarget.getAttribute('index');
+    setCardIndex(event.currentTarget.getAttribute('index'))
     if (cardIndex) {
       console.log(`This card index is ${cardIndex}`)
     } else {
@@ -50,11 +42,41 @@ function App() {
       console.log("Current weather card clicked")
     } else if (event.currentTarget.id === `forecastCard${cardIndex}`){
       console.log(`Forecast Weather Card #${cardIndex} clicked!`)
-      setSelectedCardData(DataArray[cardIndex].hour_temp_f)
+      setSelectedCardData(DataArray[cardIndex][clickedDropdown])
     } else {
       console.error("Unknown card clicked")
     }
   }
+
+  function handleDropdownClick(event){
+
+    console.log("clicked")
+
+    if(event.target.matches('.temperature')){
+      setClickedDropdown("hour_temp_f")
+      setSelectedCardData(DataArray[cardIndex][clickedDropdown])
+    } else if (event.target.matches('.uv-index')) {
+      console.log("uv clicked")
+      setClickedDropdown("hour_uv")
+      setSelectedCardData(DataArray[cardIndex][clickedDropdown])
+    }
+  }
+
+  useEffect(() => {
+    setForecastDataArray(DataArray)
+    setLoading(false);
+  }, [locationInput, ForecastDays, DataArray]);
+
+  useEffect(() => {
+    console.log(clickedDropdown)
+    setChartData([
+      {
+        id: 'us',
+        color: 'hsl(145, 70%, 50%)',
+        data: selectedCardData,
+      }
+    ]);
+  }, [selectedCardData, clickedDropdown]);
 
   return (
     <div>
@@ -78,8 +100,10 @@ function App() {
 
       <div className="chart">
         <h1>Super Cool Nivo Bar Chart</h1>
-        <MyResponsiveLine data={data} />
+        <WeatherDetailsDropDown onClick={handleDropdownClick}/>
+        <MyResponsiveLine data={chartData}/>
       </div>
+
     </div>
   )
 }
