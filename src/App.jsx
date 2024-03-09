@@ -27,6 +27,7 @@ function App() {
   const [loading, setLoading] = useState(true)
   const [clickedDropdown, setClickedDropdown] = useState("hour_temp_f")
   const [cardIndex, setCardIndex] = useState(0)
+  const [axisLeftLegend, setAxisLeftLegend] = useState("Temperature")
 
   const { DataArray } = useFetchData(`http://api.weatherapi.com/v1/forecast.json?key=f7af6cf12f7040ac9e404543230612&q=92841&days=${ForecastDays}`, ForecastDays);
 
@@ -55,37 +56,45 @@ function App() {
     if(event.target.matches('.temperature')){
       setClickedDropdown("hour_temp_f")
       setSelectedCardData(DataArray[cardIndex][clickedDropdown])
+      setAxisLeftLegend("Temperature")
 
     } else if (event.target.matches('.uv-index')) {
         setClickedDropdown("hour_uv")
         setSelectedCardData(DataArray[cardIndex][clickedDropdown])
+        setAxisLeftLegend("UV Index")
 
       } else if (event.target.matches('.wind')) {
         setClickedDropdown("hour_wind_mph")
         setSelectedCardData(DataArray[cardIndex][clickedDropdown])
+        setAxisLeftLegend("Wind (mph)")
 
       } else if (event.target.matches('.precipitation')) {
         setClickedDropdown("hour_precipitation")
         setSelectedCardData(DataArray[cardIndex][clickedDropdown])
+        setAxisLeftLegend("Precipitation (in)")
 
       } else if (event.target.matches('.feels-like')) {
         setClickedDropdown("hour_feelslike_f")
         setSelectedCardData(DataArray[cardIndex][clickedDropdown])
+        setAxisLeftLegend("Temperature")
 
       } else if (event.target.matches('.humidity')) {
         setClickedDropdown("hour_humidity")
         setSelectedCardData(DataArray[cardIndex][clickedDropdown])
+        setAxisLeftLegend("Humidity")
 
       } else if (event.target.matches('.visibility')) {
         setClickedDropdown("hour_visibility_miles")
         setSelectedCardData(DataArray[cardIndex][clickedDropdown])
+        setAxisLeftLegend("Visibility")
 
       } else if (event.target.matches('.pressure')) {
         setClickedDropdown("hour_pressure_in")
         setSelectedCardData(DataArray[cardIndex][clickedDropdown])
+        setAxisLeftLegend("Pressure (in)")
     } 
     
-    } 
+  } 
 
   useEffect(() => {
     setForecastDataArray(DataArray)
@@ -126,7 +135,7 @@ function App() {
       <div className="chart">
         <h1>Super Cool Nivo Bar Chart</h1>
         <WeatherDetailsDropDown onClick={handleDropdownClick}/>
-        <MyResponsiveLine data={chartData}/>
+        <MyResponsiveLine data={chartData} axisLeftLegend={axisLeftLegend}/>
       </div>
 
     </div>

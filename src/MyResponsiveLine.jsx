@@ -8,7 +8,7 @@ import { ResponsiveLine } from '@nivo/line'
 // no chart will be rendered.
 // website examples showcase many properties,
 // you'll often use just a few of them.
-const MyResponsiveLine = ({data}) => (
+const MyResponsiveLine = ({data, axisLeftLegend}) => (
     <ResponsiveLine
         data={data}
         margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
@@ -35,7 +35,7 @@ const MyResponsiveLine = ({data}) => (
             tickSize: 5,
             tickPadding: 5,
             tickRotation: 0,
-            legend: 'Temperature',
+            legend: axisLeftLegend,
             legendOffset: -40,
             legendPosition: 'middle'
         }}
