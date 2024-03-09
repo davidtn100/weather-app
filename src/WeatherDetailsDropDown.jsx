@@ -37,7 +37,7 @@ function WeatherDetailsDropDown({onClick}){
             <p className="wind">Wind</p>
             <p className="precipitation">Precipitation</p>
             <p className="feels-like">Feels Like</p>
-            <p className="humiditiy">Humidity</p>
+            <p className="humidity">Humidity</p>
             <p className="visibility">Visibility</p>
             <p className="pressure">Pressure</p>
         </div>

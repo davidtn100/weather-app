@@ -55,12 +55,37 @@ function App() {
     if(event.target.matches('.temperature')){
       setClickedDropdown("hour_temp_f")
       setSelectedCardData(DataArray[cardIndex][clickedDropdown])
+
     } else if (event.target.matches('.uv-index')) {
-      console.log("uv clicked")
-      setClickedDropdown("hour_uv")
-      setSelectedCardData(DataArray[cardIndex][clickedDropdown])
-    }
-  }
+        setClickedDropdown("hour_uv")
+        setSelectedCardData(DataArray[cardIndex][clickedDropdown])
+
+      } else if (event.target.matches('.wind')) {
+        setClickedDropdown("hour_wind_mph")
+        setSelectedCardData(DataArray[cardIndex][clickedDropdown])
+
+      } else if (event.target.matches('.precipitation')) {
+        setClickedDropdown("hour_precipitation")
+        setSelectedCardData(DataArray[cardIndex][clickedDropdown])
+
+      } else if (event.target.matches('.feels-like')) {
+        setClickedDropdown("hour_feelslike_f")
+        setSelectedCardData(DataArray[cardIndex][clickedDropdown])
+
+      } else if (event.target.matches('.humidity')) {
+        setClickedDropdown("hour_humidity")
+        setSelectedCardData(DataArray[cardIndex][clickedDropdown])
+
+      } else if (event.target.matches('.visibility')) {
+        setClickedDropdown("hour_visibility_miles")
+        setSelectedCardData(DataArray[cardIndex][clickedDropdown])
+
+      } else if (event.target.matches('.pressure')) {
+        setClickedDropdown("hour_pressure_in")
+        setSelectedCardData(DataArray[cardIndex][clickedDropdown])
+    } 
+    
+    } 
 
   useEffect(() => {
     setForecastDataArray(DataArray)
